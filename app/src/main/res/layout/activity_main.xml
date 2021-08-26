@@ -58,8 +58,10 @@
         app:layout_constraintTop_toBottomOf="@id/til_value">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/tv_from"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
             android:inputType="none"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -76,16 +78,21 @@
         app:layout_constraintTop_toTopOf="@id/til_from">
 
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/tv_to"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="false"
             android:inputType="none"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_converter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_padding"
+        android:enabled="false"
+        android:text="Converter"
         app:layout_constraintTop_toBottomOf="@id/til_from"
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintEnd_toEndOf="@id/guide_end"/>
