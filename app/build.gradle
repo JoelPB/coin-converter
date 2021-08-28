@@ -66,5 +66,6 @@ dependencies {
     //room @see https://developer.android.com/training/data-storage/room
     implementation "androidx.room:room-runtime:2.3.0"
     implementation "androidx.room:room-ktx:2.3.0"
+    implementation 'androidx.leanback:leanback:1.0.0'
     kapt "androidx.room:room-compiler:2.3.0"
 }

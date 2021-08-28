@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dio.coinconverter.data.model.ExchangeResponseValue
 import br.com.dio.coinconverter.domain.GetExchangeValueUseCase
+import br.com.dio.coinconverter.domain.SaveExchangeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class MainViewModel(
+    private val saveExchangeUseCase: SaveExchangeUseCase,
     private val getExchangeValueUseCase: GetExchangeValueUseCase
 ) : ViewModel() {
 
@@ -39,8 +41,28 @@ class MainViewModel(
         }
     }
 
+    fun saveExchange(exchange: ExchangeResponseValue) {
+        viewModelScope.launch {
+            saveExchangeUseCase(exchange)
+                .flowOn(Dispatchers.Main)
+                .onStart {
+                    // usar para mostrar a nossa dialog de progresso
+                    _state.value = State.Loading
+                }
+                .catch {
+                    // usar para mostrar um erro
+                    _state.value = State.Error(it)
+                }
+                .collect {
+                    // usar para mostrar o resultado
+                    _state.value = State.Saved
+                }
+        }
+    }
+
     sealed class State {
         object Loading: State()
+        object Saved: State()
 
         data class Success(internal val exchange: ExchangeResponseValue): State()
         data class Error(val error: Throwable): State()
