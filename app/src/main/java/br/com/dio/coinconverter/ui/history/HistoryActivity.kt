@@ -29,6 +29,9 @@ class HistoryActivity : AppCompatActivity() {
             )
         )
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         bindObserve()
 
         lifecycle.addObserver(viewModel)
